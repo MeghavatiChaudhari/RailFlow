@@ -3,6 +3,7 @@ package org.example.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entities.Ticket;
+import org.example.entities.Train;
 import org.example.entities.User;
 import org.example.util.UserServiceUtil;
 
@@ -20,10 +21,19 @@ public class UserBookingService {
     private static  final String USERS_PATH ="../localDb/users.json";
     public UserBookingService(User user1) throws IOException {
               this.user = user1;
-        File users = new File(USERS_PATH);
-        userList = OBJECT_MAPPER.readValue(users, new TypeReference<List<User>>() {});
+           loadUsers();
     }
 
+
+    public UserBookingService() throws  IOException{
+        loadUsers();
+    }
+
+    public List<User> loadUsers() throws IOException{
+        File users = new File(USERS_PATH);
+     return   userList = OBJECT_MAPPER.readValue(users,new  TypeReference<List<User>>() {});
+
+    }
 
     public Boolean loginUser(){
         Optional<User> foundUser = userList.stream().filter(user1 -> {
@@ -31,6 +41,8 @@ public class UserBookingService {
         }).findFirst();
         return foundUser.isPresent();
     }
+
+
 
     public Boolean signUp(User user1){
         try{
@@ -61,6 +73,12 @@ public class UserBookingService {
           return true;
       }
         return false;
+    }
+
+    public List<Train> getTrains(String source , String destination) throws IOException{
+             TrainService trainService = new TrainService();
+           return  trainService.searchTrains("bangalore","jaipur");
+
     }
 
 

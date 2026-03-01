@@ -1,6 +1,5 @@
 package org.example.entities;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ public class Train {
     private Map<String, String> stationTimes;
     private List<String> stations;
 
- public Train(String trainId,String trainNo,List<List<Integer>> seats,Map<String, String> stationTimes ,List<String> stations){
+ public Train(){
         this.trainId = trainId;
         this.trainNo = trainNo;
         this.seats=seats;
